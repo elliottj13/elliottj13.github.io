@@ -190,31 +190,17 @@ aof[7][0] = (input) => {
 	
 	console.log(lines);
 
-	for(l of lines){
-		for(var x = 0; x < l.length; x++){
-			if(l[x] == "\\" || l[x] == "\"")
-				encodedSum++; 
-		}
-	}
+	lines.forEach(x => x.split('').forEach(y => (l[x] == "\\" || l[x] == "\"") ? encodedSum++ : 0));
 
 	lines = lines.map(x => x.substring(1, x.length-1)).map(x => x.split("\\\"").join(".")).map(x => x.split("\\\\").join("."));
+	lines.map(x => x.replace(/\\x([0-9]|[a-f])/, " "));
 
-	for(var i = 0; i < lines.length; i++){
-		var line = lines[i];
-		for(var x = 0; x < line.length; x++){
-			if(line[x] == "\\" && line[x+1] == "x"){
-				line = line.substring(0,x) + line.substring(x+3,line.length);
-			}
-		}
-		lines[i] = line;
-	}
-	for(l of lines){
-		memorySum += l.length;
-	}
+	lines.forEach(x => memorySum += x.length);
+	
 	var P1 = literalSum - memorySum;
 	var P2 = encodedSum - literalSum;
 
-	output += "2015, Day 8\nPart 1: " + P1 + "\nPart 2: " + P2 + "\n\n";
+	output.value += "2015, Day 8\nPart 1: " + P1 + "\nPart 2: " + P2 + "\n\n";
 };
 
 aof[8][0] = (input) => {
