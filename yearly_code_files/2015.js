@@ -184,19 +184,21 @@ aof[6][0] = (input) => {
 aof[7][0] = (input) => {
 	lines = input.split("\n");
 	literalSum = 0, memorySum = 0, encodedSum = lines.length*2;
-	for(l of lines){
-		literalSum += l.length;
-		encodedSum += l.length;
-	}
+	
+	lines.forEach(x => literalSum += x.length);
+	lines.forEach(x => encodedSum += x.length);
+	
+	console.log(lines);
+
 	for(l of lines){
 		for(var x = 0; x < l.length; x++){
 			if(l[x] == "\\" || l[x] == "\"")
 				encodedSum++; 
 		}
 	}
-	lines = lines.map(x => x.substring(1, x.length-1));
-	lines = lines.map(x => x.split("\\\"").join("."));
-	lines = lines.map(x => x.split("\\\\").join("."));
+
+	lines = lines.map(x => x.substring(1, x.length-1)).map(x => x.split("\\\"").join(".")).map(x => x.split("\\\\").join("."));
+
 	for(var i = 0; i < lines.length; i++){
 		var line = lines[i];
 		for(var x = 0; x < line.length; x++){
@@ -211,7 +213,8 @@ aof[7][0] = (input) => {
 	}
 	var P1 = literalSum - memorySum;
 	var P2 = encodedSum - literalSum;
-	alert("2015, Day 8\nPart 1: " + P1 + "\nPart 2: " + P2);
+
+	output += "2015, Day 8\nPart 1: " + P1 + "\nPart 2: " + P2 + "\n\n";
 };
 
 aof[8][0] = (input) => {
