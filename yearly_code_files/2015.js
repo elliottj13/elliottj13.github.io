@@ -190,7 +190,7 @@ aof[7][0] = (input) => {
 	
 	console.log(lines);
 
-	lines.forEach(x => x.split('').forEach(y => (l[x] == "\\" || l[x] == "\"") ? encodedSum++ : 0));
+	lines.forEach(x => x.split('').forEach(y => (y == "\\" || y == "\"") ? encodedSum++ : 0));
 
 	lines = lines.map(x => x.substring(1, x.length-1)).map(x => x.split("\\\"").join(".")).map(x => x.split("\\\\").join("."));
 	lines.map(x => x.replace(/\\x([0-9]|[a-f])/, " "));
